@@ -1,0 +1,35 @@
+
+
+version: "3.3"
+services:
+  api:
+    build: ./api
+    ports:
+      - 8000:8080
+    restart: unless-stopped
+    volumes:
+      - uploadcasco:/upload
+    environment:
+      DATABASE_CONNECTION: mongodb://db/casco
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 2737:27017
+    restart: unless-stopped
+    volumes:
+      - casco:/data/db
+  web:
+    build: ./backoffice
+    ports:
+      - 3000:80
+    restart: unless-stopped
+    volumes:
+     - './backoffice:/app'
+     - '/app/node_modules'
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  casco:
+  uploadcasco:

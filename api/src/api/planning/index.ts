@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/planning`,
+    require('./planningCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/planning/:id`,
+    require('./planningUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/planning/import`,
+    require('./planningImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/planning`,
+    require('./planningDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/planning/autocomplete`,
+    require('./planningAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/planning`,
+    require('./planningList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/planning/:id`,
+    require('./planningFind').default,
+  );
+};
